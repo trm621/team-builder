@@ -1,5 +1,4 @@
 const Manager = require("../lib/Manager");
-const Employee = require("../lib/Employee");
 
 test("checks for office number", () => {
     const manager = new Manager()
@@ -8,5 +7,5 @@ test("checks for office number", () => {
 
 test('checks to see if role is switched', () => {
     const manager = new Manager()
-    expect(manager.role).toEqual("Manager");
-})
+    expect(manager.getRole()).toEqual("Manager");
+});
