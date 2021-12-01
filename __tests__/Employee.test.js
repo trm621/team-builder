@@ -1,4 +1,3 @@
-const { handlePotentialSyntaxError } = require('@jest/transform');
 const Employee = require('../lib/Employee');
 
 test('checks to see if an employee object is made', () => {
@@ -16,6 +15,7 @@ test("gets the employee's name", () => {
 
 test("gets the employee's id number", () => {
     const employee = new Employee('Dave');
+    employee.id = 40;
 
     expect(employee.getId()).toEqual(expect.any(Number));
 });
