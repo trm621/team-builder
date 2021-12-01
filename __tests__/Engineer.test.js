@@ -1,7 +1,2 @@
-const Employee = require('../lib/Employee')
+const Engineer = require("../lib/Engineer");
 
-class Engineer extends Employee {
-
-};
-
-module.exports = Engineer;

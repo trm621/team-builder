@@ -1,7 +1,6 @@
-const Employee = require('../lib/Employee');
+const Manager = require("../lib/Manager");
 
-class Manager extends Employee {
-
-}
-
-module.exports = Manager;
+test("checks for office number", () => {
+    const manager = new Manager()
+    expect(manager.officeNumber).toEqual(expect.any(Number));
+});
