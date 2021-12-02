@@ -4,19 +4,22 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "test": "jest"
+        "test": "jest"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/trm621/team-builder.git"
+        "type": "git",
+        "url": "git+https://github.com/trm621/team-builder.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/trm621/team-builder/issues"
+        "url": "https://github.com/trm621/team-builder/issues"
     },
     "homepage": "https://github.com/trm621/team-builder#readme",
     "devDependencies": {
-    "jest": "^27.4.3"
-  }
+        "jest": "^27.4.3"
+    },
+    "dependencies": {
+        "inquirer": "^8.2.0"
+    }
 }
