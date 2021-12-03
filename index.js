@@ -4,13 +4,21 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
 
-initializeApp = () => {
-    inquirer
+const initializeApp = () => {
+    return inquirer
         .prompt({
             type: 'input',
             name: 'name',
             message: "Please enter a teammate's name."
-        },
+        })
+
+    }
+
+const gatherInfo = teamMateData => {
+    if (!teamMateData) {
+        teamMateData = [];
+    }
+    return inquirer.prompt([
         {
             type: 'number',
             name: 'id',
@@ -26,13 +34,22 @@ initializeApp = () => {
             name: 'role',
             message: "Please select your teammate's role.",
             choices: ["Manager", "Intern", "Engineer"]
-            
+        }])
+        .then(teamMateInfo => {
+            teamMateData.push(teamMateInfo)
+            return teamMateInfo
         })
-        .then(({ role }) => {
-            this.employee = new Employee(role);
-            console.log(this.employee)
+    };
 
-});
+const generatePage = teamMateInfo => {
+    return `
+    `
 }
 
-initializeApp();
+initializeApp()
+    .then(teamMateName => {
+        return gatherInfo(teamMateName)
+})
+.then(pageHTML => {
+    return generatePage(pageHTML);
+})
