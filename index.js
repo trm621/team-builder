@@ -3,6 +3,8 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
+const fs = require('fs');
+const generatePage = require('./utils/generate-page')
 
 const initializeApp = () => {
     return inquirer
@@ -15,9 +17,6 @@ const initializeApp = () => {
     }
 
 const gatherInfo = teamMateData => {
-    if (!teamMateData) {
-        teamMateData = [];
-    }
     return inquirer.prompt([
         {
             type: 'number',
@@ -36,15 +35,25 @@ const gatherInfo = teamMateData => {
             choices: ["Manager", "Intern", "Engineer"]
         }])
         .then(teamMateInfo => {
-            teamMateData.push(teamMateInfo)
-            return teamMateInfo
+            return teamMateInfo;
         })
     };
 
-const generatePage = teamMateInfo => {
-    return `
-    `
-}
+const writeToFile = fileContent => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', fileContent, err => {
+        if (err) {
+            reject(err);
+            return;
+        }
+      
+        resolve({
+            ok: true,
+            message: 'File created!'
+        });
+    });
+});
+};
 
 initializeApp()
     .then(teamMateName => {
@@ -52,4 +61,7 @@ initializeApp()
 })
 .then(pageHTML => {
     return generatePage(pageHTML);
+})
+.then(fileContent => {
+    return writeToFile(fileContent);
 })
