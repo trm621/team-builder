@@ -8,16 +8,11 @@ const generatePage = require('./utils/generate-page')
 
 const initializeApp = () => {
     return inquirer
-        .prompt({
+        .prompt([{
             type: 'input',
             name: 'name',
             message: "Please enter a teammate's name."
-        })
-
-    }
-
-const gatherInfo = teamMateData => {
-    return inquirer.prompt([
+        },
         {
             type: 'number',
             name: 'id',
@@ -33,7 +28,8 @@ const gatherInfo = teamMateData => {
             name: 'role',
             message: "Please select your teammate's role.",
             choices: ["Manager", "Intern", "Engineer"]
-        }])
+        }
+        ])
         .then(teamMateInfo => {
             return teamMateInfo;
         })
@@ -56,11 +52,9 @@ const writeToFile = fileContent => {
 };
 
 initializeApp()
-    .then(teamMateName => {
-        return gatherInfo(teamMateName)
-})
-.then(pageHTML => {
-    return generatePage(pageHTML);
+
+.then(teamMateInfo => {
+    return generatePage(teamMateInfo);
 })
 .then(fileContent => {
     return writeToFile(fileContent);
