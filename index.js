@@ -34,7 +34,6 @@ const initializeApp = () => {
         .then(teamMateInfo => {
             return teamMateInfo;
         })
-        // .then(teamMateInfo.role)
     };
 
 const writeToFile = fileContent => {
@@ -53,11 +52,33 @@ const writeToFile = fileContent => {
 });
 };
 
-initializeApp()
+const copyFile = () => {
+    return new Promise((resolve, reject) => {
+      fs.copyFile('./src/style.css', './dist/style.css', err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+  
+        resolve({
+          ok: true,
+          message: 'Stylesheet created!'
+        });
+      });
+    });
+  };
 
+initializeApp()
 .then(teamMateInfo => {
     return generatePage(teamMateInfo);
 })
 .then(fileContent => {
     return writeToFile(fileContent);
 })
+.then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile(writeFileResponse);
+})
+.then(copyFileResponse => {
+    console.log(copyFileResponse);
+  })
