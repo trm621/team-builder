@@ -9,6 +9,7 @@ const generatePage = require('./utils/generate-page')
 const initializeApp = () => {
     return inquirer
         .prompt([{
+
             type: 'input',
             name: 'name',
             message: "Please enter a teammate's name."
@@ -33,6 +34,7 @@ const initializeApp = () => {
         .then(teamMateInfo => {
             return teamMateInfo;
         })
+        // .then(teamMateInfo.role)
     };
 
 const writeToFile = fileContent => {

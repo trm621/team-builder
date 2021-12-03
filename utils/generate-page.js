@@ -1,3 +1,14 @@
+const generateCard = teamMateInfo => {
+    return `
+    <div class="team-info"> 
+    ${teamMateInfo.name}
+    ${teamMateInfo.role}
+    ${teamMateInfo.id}
+    ${teamMateInfo.email}
+    ${teamMateInfo.officeNumber}`
+}
+
+
 const generatePage = teamMateInfo => {
     return `
 <!DOCTYPE html>
@@ -14,12 +25,7 @@ const generatePage = teamMateInfo => {
 <div class="card-section">
     <div class="card">
         <div class="card-header"> 
-        ${teamMateInfo.name} </br>
-        ${teamMateInfo.role} </div>
-        <div class="team-info"> 
-        ${teamMateInfo.id}
-        ${teamMateInfo.email}
-        ${teamMateInfo.officeNumber}
+        ${generateCard(teamMateInfo)}
     </div>
 </div>
 
