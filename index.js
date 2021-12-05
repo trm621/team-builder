@@ -4,12 +4,14 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
 const fs = require('fs');
-const generatePage = require('./utils/generate-page')
+const generatePage = require('./utils/generate-page');
 
-const initializeApp = () => {
+const initializeApp = teamMates => {
+    if (!teamMates) {
+        teamMates = [];
+    }
     return inquirer
         .prompt([{
-
             type: 'input',
             name: 'name',
             message: "Please enter a teammate's name."
@@ -17,26 +19,33 @@ const initializeApp = () => {
         {
             type: 'number',
             name: 'id',
-            message: "Please input your teammate's ID number."
+            message: "Please enter your teammate's ID number",
         },
         {
             type: 'input',
             name: 'email',
-            message: "Please input your teammate's email address."
+            message: "Please enter your teammate's email address."
         },
         {
             type: 'checkbox',
             name: 'role',
             message: "Please select your teammate's role.",
             choices: ["Manager", "Intern", "Engineer"]
-        }
-        ])
-        .then(teamMateInfo => {
-            return teamMateInfo;
+        }])
+        .then(newEmployee => {
+            teamMates.push(newEmployee)
+            return newEmployee,
+            createNewEmployee(newEmployee)
         })
     };
 
-const writeToFile = fileContent => {
+const createNewEmployee = (newEmployee) => {
+    if (newEmployee === "Manager") {
+        console.log("Manager created!");
+    }
+}
+
+writeToFile = fileContent => {
     return new Promise((resolve, reject) => {
         fs.writeFile('./dist/index.html', fileContent, err => {
         if (err) {
@@ -69,16 +78,20 @@ const copyFile = () => {
   };
 
 initializeApp()
-.then(teamMateInfo => {
-    return generatePage(teamMateInfo);
-})
-.then(fileContent => {
-    return writeToFile(fileContent);
-})
-.then(writeFileResponse => {
-    console.log(writeFileResponse);
-    return copyFile(writeFileResponse);
-})
-.then(copyFileResponse => {
-    console.log(copyFileResponse);
+  .then(newEmployee => {
+      return createNewEmployee(newEmployee)
   })
+    
+// .then(teamMateInfo => {
+//     return generatePage(teamMateInfo);
+// })
+// .then(fileContent => {
+//     return writeToFile(fileContent);
+// })
+// .then(writeFileResponse => {
+//     console.log(writeFileResponse);
+//     return copyFile(writeFileResponse);
+// })
+// .then(copyFileResponse => {
+//     console.log(copyFileResponse);
+//   })
